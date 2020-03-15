@@ -48,26 +48,17 @@ private static void rimozioneDigimon(Connection connessione) throws SQLException
 	System.out.println("Ecco i digimon ");
 	
 	while (executeQuery.next()) {
-		
-		System.out.println(executeQuery.next());
+		int id =executeQuery.getInt(1);
+		String nome=executeQuery.getString("nome");
+		System.out.println(id+" "+nome);
 		
 		
 	}
-	String queryInserimentoDigimon= "DELETE FROM digimon WHERE CustomerName='Alfreds Futterkiste'";
-	PreparedStatement prepareStatement = connessione.prepareStatement(queryInserimentoDigimon);
-	System.out.println("inserisci il nome");
-	prepareStatement.setString(1, scanner.nextLine());
-	System.out.println("inserisci l'attacco");
-	prepareStatement.setInt(2, scanner.nextInt());
-	scanner.nextLine();
-	System.out.println("inserisci la difesa");
-	prepareStatement.setInt(3, scanner.nextInt());
-	scanner.nextLine();
-	System.out.println("inserisci la resitenza");
-	prepareStatement.setInt(4, scanner.nextInt());
-	scanner.nextLine();
-	System.out.println("inserisci l'evoluzione");
-	prepareStatement.setString(5, scanner.nextLine());
-	prepareStatement.execute();
+	String queryRimozioneDigimon= "DELETE FROM digimon WHERE id= ?";
+	PreparedStatement prepareStatement2 = connessione.prepareStatement(queryRimozioneDigimon);
+	System.out.println("Inseriscimi l'id del digimon");
+	prepareStatement2.setInt(1, scanner.nextInt());
+    prepareStatement2.execute();
+    System.out.println("digimon eliminato");
 }
 }
