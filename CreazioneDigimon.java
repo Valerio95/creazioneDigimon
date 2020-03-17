@@ -35,7 +35,19 @@ public static void main(String[] args) throws SQLException, ClassNotFoundExcepti
 		}
 	}
 }
-	
+	public static void giocaArena(Connection connessione) throws SQLException{
+		PreparedStatement getId = connessione.prepareStatement("select MAX(idPartita) from Partita ;");
+		ResultSet executeId = getId.executeQuery();
+		int idPartita=0;
+		while(executeId.next()) {
+			idPartita=executeId.getInt(1);
+		}
+		
+		String queryCreazioneArena= "INSERT INTO Partita ( idPartita, turno, atk, def) VALUES (?, ?, ?, ?, ?);";
+		PreparedStatement prepareStatement = connessione.prepareStatement(queryCreazioneArena);
+		prepareStatement.setInt(1, idPartita);
+		
+	}	
 	
 	
 	private static void creazioneDigimon(Connection connessione) throws SQLException {
